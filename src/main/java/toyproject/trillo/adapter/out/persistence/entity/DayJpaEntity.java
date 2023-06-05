@@ -1,16 +1,22 @@
 package toyproject.trillo.adapter.out.persistence.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "days")
 @Getter
 @Setter
+@SuperBuilder
+@NoArgsConstructor
+@ToString
 public class DayJpaEntity extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +28,17 @@ public class DayJpaEntity extends BaseTimeEntity{
     private TripJpaEntity trip;
 
     @Column
-    private Date date;
+    private LocalDate date;
 
     @OneToMany(mappedBy = "day", cascade = CascadeType.ALL, orphanRemoval = true)
-    private ArrayList<ScheduleJpaEntity> schedules;
+    private List<ScheduleJpaEntity> schedules;
 
     @Column
     private String color;
 
     @Column
     private int travelledDistance;
+
 
     public void addSchedule(ScheduleJpaEntity scheduleJpaEntity, int targetOrder) {
         this.schedules.add(targetOrder, scheduleJpaEntity);

@@ -1,7 +1,9 @@
 package toyproject.trillo.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import toyproject.trillo.adapter.out.persistence.entity.SchedulePersistenceMapper;
 import toyproject.trillo.adapter.out.persistence.entity.TripJpaEntity;
 import toyproject.trillo.adapter.out.persistence.entity.TripPersistenceMapper;
@@ -13,6 +15,7 @@ import toyproject.trillo.exception.ResourceNotFoundException;
 
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class TripPersistenceAdapter implements TripPersistencePort {
@@ -39,6 +42,7 @@ public class TripPersistenceAdapter implements TripPersistencePort {
     }
 
     @Override
+    @Transactional
     public List<Schedule> getTempSchedules(Long tripId) {
         TripJpaEntity tripJpaEntity = tripRepository.findById(tripId).orElseThrow(() -> new ResourceNotFoundException(ResourceNotFoundException.INVALID_TRIP_ID));
         return schedulePersistenceMapper.scheduleJpaEntityListToScheduleList(tripJpaEntity.getTempSchedules());

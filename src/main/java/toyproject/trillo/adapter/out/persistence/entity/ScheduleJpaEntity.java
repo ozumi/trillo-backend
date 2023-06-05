@@ -1,16 +1,22 @@
 package toyproject.trillo.adapter.out.persistence.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import toyproject.trillo.domain.Location;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "schedules")
 @Getter
 @Setter
+@SuperBuilder
+@NoArgsConstructor
+@ToString
 public class ScheduleJpaEntity extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,10 +39,10 @@ public class ScheduleJpaEntity extends BaseTimeEntity{
     private Location location;
 
     @Column
-    private Date startTime;
+    private LocalTime startTime;
 
     @Column
-    private Date endTime;
+    private LocalTime endTime;
 
     @Column
     private int order;

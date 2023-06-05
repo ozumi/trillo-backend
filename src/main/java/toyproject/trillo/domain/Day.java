@@ -1,18 +1,22 @@
 package toyproject.trillo.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
+@Builder
+@ToString
 public class Day {
     private Long id;
     private Trip trip;
-    private Date date;
-    private ArrayList<Schedule> schedules;
+    private LocalDate date;
+    private List<Schedule> schedules;
     private String color;
     private int travelledDistance;
 }
