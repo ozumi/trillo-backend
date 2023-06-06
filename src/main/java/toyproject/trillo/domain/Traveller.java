@@ -6,16 +6,16 @@ import lombok.Setter;
 import lombok.ToString;
 import toyproject.trillo.adapter.out.persistence.entity.TripJpaEntity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Setter
 @Builder
-@ToString
+@ToString(of = {"id", "name", "badge", "travelledDistance"})
 public class Traveller {
     private Long id;
     private String name;
-    private List<TripJpaEntity> trips;
+    private ArrayList<TripJpaEntity> trips;
     private int travelledDistance;
     private Badge badge;
 }

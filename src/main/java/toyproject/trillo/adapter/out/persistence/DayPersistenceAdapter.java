@@ -24,6 +24,12 @@ public class DayPersistenceAdapter implements DayPersistencePort {
     }
 
     @Override
+    public Day getDay(Long id) {
+        return dayPersistenceMapper.dayJpaEntityToDay(
+                dayRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ResourceNotFoundException.INVALID_DAY_ID)));
+    }
+
+    @Override
     public Day updateDay(Day day) {
         if(!dayRepository.existsById(day.getId()))
             throw new ResourceNotFoundException(ResourceNotFoundException.INVALID_DAY_ID);

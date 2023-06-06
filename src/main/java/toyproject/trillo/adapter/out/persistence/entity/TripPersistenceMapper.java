@@ -14,6 +14,6 @@ import java.util.UUID;
         , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface TripPersistenceMapper {
     TripJpaEntity tripToTripJpaEntity(Trip trip);
-    Trip tripJpaEntityToTrip(TripJpaEntity tripJPAEntity);
+    Trip tripJpaEntityToTrip(TripJpaEntity tripJpaEntity);
     List<Trip> tripJpaEntityListToTripList(List<TripJpaEntity> entityList);
 }

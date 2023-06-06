@@ -1,7 +1,6 @@
 package toyproject.trillo.adapter.out.persistence;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -33,6 +32,9 @@ class TripPersistenceAdapterTest {
     private TripRepository tripRepository;
     @Spy
     private TripPersistenceMapper tripPersistenceMapper = Mappers.getMapper(TripPersistenceMapper.class);
+    @Spy
+    private SchedulePersistenceMapper schedulePersistenceMapper = Mappers.getMapper(SchedulePersistenceMapper.class);
+
     @InjectMocks
     private TripPersistenceAdapter tripPersistenceAdapter;
 
@@ -63,6 +65,7 @@ class TripPersistenceAdapterTest {
 
     DayJpaEntity dayJpaEntity = DayJpaEntity.builder()
             .id(100L)
+            .trip(tripJpaEntity)
             .date(LocalDate.of(2023, 5, 1))
             .color("#000000")
             .build();
@@ -105,6 +108,7 @@ class TripPersistenceAdapterTest {
 
     Day day = Day.builder()
             .id(100L)
+            .trip(trip)
             .date(LocalDate.of(2023, 5, 1))
             .color("#000000")
             .build();
@@ -163,7 +167,6 @@ class TripPersistenceAdapterTest {
     }
 
     @Test
-    @Disabled
     void success_getTempSchedules() {
         //given
         given(tripRepository.findById(any())).willReturn(Optional.ofNullable(tripTempJpaEntity));
@@ -180,31 +183,15 @@ class TripPersistenceAdapterTest {
     void success_updateTrip() {
         //given
         given(tripRepository.existsById(any())).willReturn(true);
-        TripJpaEntity tripEntity = TripJpaEntity.builder()
-                .id(10L)
-                .traveller(travellerJpaEntity)
-                .title("test_trip")
-                .status(TripStatus.DONE)
-                .startDate(LocalDate.of(2023, 5, 1))
-                .endDate(LocalDate.of(2023, 5, 10))
-                .build();
-        given(tripRepository.save(any())).willReturn(tripEntity);
+        given(tripRepository.save(any())).willReturn(tripJpaEntity);
 
         //when
-        Trip updateTrip = Trip.builder()
-                .id(10L)
-                .traveller(traveller)
-                .title("test_trip")
-                .status(TripStatus.DONE)
-                .startDate(LocalDate.of(2023, 5, 1))
-                .endDate(LocalDate.of(2023, 5, 10))
-                .build();
-        Trip actual = tripPersistenceAdapter.updateTrip(updateTrip);
+        Trip actual = tripPersistenceAdapter.updateTrip(trip);
 
         //then
-        assertThat(updateTrip.getId()).isEqualTo(actual.getId());
-        assertThat(updateTrip.getTraveller().getId()).isEqualTo(actual.getTraveller().getId());
-        assertThat(updateTrip.getStatus()).isEqualTo(actual.getStatus());
+        assertThat(trip.getId()).isEqualTo(actual.getId());
+        assertThat(trip.getTraveller().getId()).isEqualTo(actual.getTraveller().getId());
+        assertThat(trip.getStatus()).isEqualTo(actual.getStatus());
     }
 
     @Test

@@ -1,14 +1,11 @@
 package toyproject.trillo.adapter.out.persistence.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import toyproject.trillo.domain.Badge;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "travellers")
@@ -16,7 +13,7 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@ToString
+@ToString(of = {"id", "name", "badge", "travelledDistance"})
 public class TravellerJpaEntity extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -26,8 +23,9 @@ public class TravellerJpaEntity extends BaseTimeEntity{
     @Column
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "traveller", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TripJpaEntity> trips;
+    private ArrayList<TripJpaEntity> trips = new ArrayList<>();
 
     @Column
     private int travelledDistance;

@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface DayPersistencePort {
     Day createDay(Day day);
+    Day getDay(Long id);
     Day updateDay(Day day);
     List<Day> getDays(Long tripId);
     void deleteDay(Long id);

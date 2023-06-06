@@ -16,7 +16,7 @@ import java.time.LocalTime;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@ToString
+@ToString(of = {"id", "title", "location", "startTime", "endTime", "order", "content"})
 public class ScheduleJpaEntity extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

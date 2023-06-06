@@ -14,6 +14,6 @@ import java.util.UUID;
         , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface DayPersistenceMapper {
     DayJpaEntity dayToDayJpaEntity(Day day);
-    Day dayJpaEntityToDay(DayJpaEntity dayJPAEntity);
+    Day dayJpaEntityToDay(DayJpaEntity dayJpaEntity);
     List<Day> dayJpaEntityListToDayList(List<DayJpaEntity> entityList);
 }

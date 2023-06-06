@@ -1,14 +1,12 @@
 package toyproject.trillo.adapter.out.persistence.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import toyproject.trillo.domain.TripStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "trips")
@@ -16,6 +14,7 @@ import java.util.List;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
+@ToString(of = {"id", "title", "status", "startDate", "endDate", "image", "travelledDistance"})
 public class TripJpaEntity extends BaseTimeEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +38,13 @@ public class TripJpaEntity extends BaseTimeEntity{
     @Column
     private LocalDate endDate;
 
+    @Builder.Default
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DayJpaEntity> days;
+    private ArrayList<DayJpaEntity> days = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ScheduleJpaEntity> tempSchedules;
+    private ArrayList<ScheduleJpaEntity> tempSchedules = new ArrayList<>();
 
     @Column
     private String image;

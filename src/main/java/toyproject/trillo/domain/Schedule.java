@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Builder
-@ToString
+@ToString(of = {"id", "title", "location", "startTime", "endTime", "order", "content"})
 public class Schedule {
     private Long id;
     private Trip trip;

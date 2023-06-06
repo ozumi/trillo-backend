@@ -64,7 +64,7 @@ public class SchedulePersistenceAdapter implements SchedulePersistencePort {
     }
 
     @Override
-    public void moveSchedule(Long id, Long targetDayId, int targetOrder) {
+    public Schedule moveSchedule(Long id, Long targetDayId, int targetOrder) {
         ScheduleJpaEntity scheduleJpaEntity = scheduleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ResourceNotFoundException.INVALID_SCHEDULE_ID));
         if(targetDayId != null) {
             //다른 Day로 옮긴다
@@ -74,6 +74,6 @@ public class SchedulePersistenceAdapter implements SchedulePersistencePort {
             //Temp schedules로 옮긴다
             scheduleJpaEntity.moveToTemp(targetOrder);
         }
-
+        return schedulePersistenceMapper.scheduleJpaEntityToSchedule(scheduleJpaEntity);
     }
 }

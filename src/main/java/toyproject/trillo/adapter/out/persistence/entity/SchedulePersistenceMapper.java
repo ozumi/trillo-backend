@@ -14,6 +14,6 @@ import java.util.UUID;
         , nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface SchedulePersistenceMapper {
     ScheduleJpaEntity scheduleToScheduleJpaEntity(Schedule schedule);
-    Schedule scheduleJpaEntityToSchedule(ScheduleJpaEntity scheduleJPAEntity);
+    Schedule scheduleJpaEntityToSchedule(ScheduleJpaEntity scheduleJpaEntity);
     List<Schedule> scheduleJpaEntityListToScheduleList(List<ScheduleJpaEntity> entityList);
 }

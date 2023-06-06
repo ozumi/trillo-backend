@@ -6,17 +6,17 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Setter
 @Builder
-@ToString
+@ToString(of = {"id", "date", "color", "travelledDistance"})
 public class Day {
     private Long id;
     private Trip trip;
     private LocalDate date;
-    private List<Schedule> schedules;
+    private ArrayList<Schedule> schedules;
     private String color;
     private int travelledDistance;
 }

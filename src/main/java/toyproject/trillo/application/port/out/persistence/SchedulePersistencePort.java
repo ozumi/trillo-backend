@@ -11,6 +11,6 @@ public interface SchedulePersistencePort {
     List<Schedule> getSchedulesByTripId(Long tripId);
     Schedule updateSchedule(Schedule schedule);
     void deleteSchedule(Long id);
-    void moveSchedule(Long id, Long targetDayId, int targetOrder);
+    Schedule moveSchedule(Long id, Long targetDayId, int targetOrder);
 
 }
